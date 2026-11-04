@@ -19,6 +19,8 @@ describe("fuelGroupOf", () => {
     expect(fuelGroupOf("SUN")).toBe("solar");
     expect(fuelGroupOf("WAT")).toBe("other");
     expect(fuelGroupOf("BAT")).toBe("other");
+    expect(fuelGroupOf("SNB")).toBe("solar");
+    expect(fuelGroupOf("WNB")).toBe("wind");
   });
 });
 

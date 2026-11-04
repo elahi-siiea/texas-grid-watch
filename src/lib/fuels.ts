@@ -24,12 +24,14 @@ export const RENEWABLES_COLOR = "var(--renewables)";
 const EIA_CODE_TO_GROUP: Record<string, FuelGroup> = {
   NG: "gas",
   WND: "wind",
+  WNB: "wind",
   SUN: "solar",
+  SNB: "solar",
   NUC: "nuclear",
   COL: "coal",
 };
 
-/** Hydro, oil, batteries and anything EIA adds later land in "other". */
+/** WNB and SNB are wind and solar with integrated batteries. Hydro, oil, batteries and anything EIA adds later land in "other". */
 export function fuelGroupOf(eiaCode: string): FuelGroup {
   return EIA_CODE_TO_GROUP[eiaCode] ?? "other";
 }

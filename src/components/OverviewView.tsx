@@ -43,6 +43,7 @@ export function OverviewView() {
   const share = latestMix?.mix ? renewableShare(latestMix.mix) : null;
   const record = historyData ? allTimePeak(historyData.days) : null;
   const hourLabel = (t: number) => formatCentral(t, { hour: "numeric" });
+  const hourWithDate = (t: number) => formatCentral(t, { month: "short", day: "numeric", hour: "numeric" });
 
   const demandPoints = sliceRange(hourly, demandRange);
   const mixPoints = sliceRange(hourly, mixRange);
@@ -82,10 +83,10 @@ export function OverviewView() {
             detail={todaysPeak ? `At ${hourLabel(todaysPeak.at)} CT, ${latestDay ? formatDateKey(latestDay) : ""}` : undefined}
           />
           <StatCard
-            label="Renewable share now"
+            label="Renewable share, latest reported"
             status={recent.state.status}
             value={share !== null ? formatPercent(share) : undefined}
-            detail={latestMix ? `Wind + solar, hour starting ${hourLabel(latestMix.t)} CT` : undefined}
+            detail={latestMix ? `Wind + solar, hour starting ${hourWithDate(latestMix.t)} CT` : undefined}
           />
           <StatCard
             label="Highest hourly demand on record"
@@ -151,7 +152,7 @@ export function OverviewView() {
             <>
               Each band is one fuel. Solar appears only in daylight, wind varies with the weather, and natural gas
               plants adjust to fill the gap. &ldquo;Battery &amp; other&rdquo; combines batteries, hydro, oil and
-              anything not listed separately. Steadier plants sit at the bottom of the stack and weather-driven wind and solar at the top.
+              anything not listed separately. EIA publishes generation by fuel later than demand, so this chart can end earlier than the demand chart. Steadier plants sit at the bottom of the stack and weather-driven wind and solar at the top.
             </>
           }
         >

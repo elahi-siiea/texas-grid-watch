@@ -14,7 +14,7 @@ A dashboard that shows how the Texas (ERCOT) electricity grid is changing, built
 
 ## Features
 
-- **Overview**: current demand, today's peak, renewable share right now, and the highest hourly demand on record, plus a 24-hour / 7-day demand chart and a stacked generation-by-fuel chart (megawatts or share).
+- **Overview**: current demand, today's peak, latest renewable share, and the highest hourly demand on record, plus a 24-hour / 7-day demand chart and a stacked generation-by-fuel chart (megawatts or share).
 - **Trends**: yearly solar and wind generation, gas / coal / renewables share, and peak demand with a straight-line trend. A year-range selector filters every chart.
 - **Daily patterns**: average demand, solar, gas and net load by hour of day, with a summer / winter toggle and a plain-English explanation of the duck curve.
 - **Data centers and the grid**: demand growth computed from the app's own data, sourced context on Texas SB 6, visible TODOs for figures that still need verifying, and a limitations note.
@@ -74,13 +74,13 @@ EIA endpoints used (all with `facets[respondent][]=ERCO`):
 
 ## Key findings
 
-> `[REAL DATA]` These need real numbers. Add an EIA key, open the app, and replace each bracket with what the charts show. Until then they are placeholders, not results. The bundled sample data is synthetic and must not be quoted.
+Computed by this app's own pipeline from live EIA data for ERCOT on 4 November 2026 (data through 3 November). Years are complete calendar years, 2019 to 2025. Numbers will drift slightly as EIA revises data, so re-check them before quoting.
 
-1. Solar generation went from `[X]` TWh in `[first year]` to `[Y]` TWh in `[last complete year]` (Trends, chart 1).
-2. Wind plus solar supplied `[X]%` of generation in `[last complete year]`, up from `[Y]%` in `[first year]` (Trends, chart 2).
-3. The yearly peak hour of demand rose from `[X]` GW to `[Y]` GW, about `[Z]` GW per year on a straight-line fit (Trends, chart 3).
-4. Annual demand grew `[X]%` per year on average between `[first year]` and `[last complete year]` (Data centers page). This data cannot say how much of that comes from data centers.
-5. On an average summer day, net load is lowest around `[hour]` and highest around `[hour]` (Daily patterns).
+1. **Solar grew from a rounding error to a major source.** Solar generation went from 4.0 TWh in 2019 to 67.4 TWh in 2025 (Trends, chart 1).
+2. **The mix shifted away from gas and coal.** Wind plus solar supplied 37.5% of generation in 2025, up from 21.1% in 2019. Over the same period natural gas fell from 47.3% to 40.9% and coal from 20.4% to 13.0% (Trends, chart 2).
+3. **Peak demand is rising.** The highest hour of demand went from 74.5 GW in 2019 to 83.6 GW in 2025, about 2.2 GW more per year on a straight-line fit. The highest hour in the dataset so far is 91.1 GW, on 22 July 2026, in a year that is not yet complete (Trends, chart 3).
+4. **Annual demand grew about 4.0% per year.** Electricity use rose from 383.7 TWh in 2019 to 485.6 TWh in 2025 (Data centers page). This data covers the whole grid and cannot say how much of the growth comes from data centers.
+5. **The evening is the hard part of a summer day.** Averaged over 92 summer days, solar peaks around 2 PM at 29.8 GW. Net load (demand minus wind and solar) is lowest around 10 AM at 28.6 GW and reaches 60.0 GW by 9 PM (Daily patterns).
 
 ## Data source and credit
 
@@ -102,13 +102,9 @@ Data: [U.S. Energy Information Administration](https://www.eia.gov/opendata/), H
 - Hourly averages smooth out short spikes, so peaks can be lower than ERCOT's instantaneous records.
 - The history starts in 2019, so "record" means highest in this dataset.
 - The data describes the whole grid and cannot attribute growth to a specific kind of customer.
-- The daily-route names and the `timezone` facet were written from EIA's v2 conventions and should be checked against live metadata once with a real key (see below).
 
-## First run with a real key
+## Checking a deployment
 
-Before publishing, confirm the live responses once:
-
-1. `EIA_API_KEY=... npm run dev`, open the Overview page and confirm there is no "Using sample data" banner.
-2. If a banner remains, its message names the cause. If it says the EIA API returned no data, check the route names and facets in `src/lib/eia/queries.ts` against `https://api.eia.gov/v2/electricity/rto/?api_key=YOUR_KEY`.
-3. Check that fuel codes in the data match `src/lib/fuels.ts`; unknown codes are grouped into "Battery & other".
-4. Fill the Key findings above and the TODOs on the Data centers page.
+1. Open the Overview page. If a "Using sample data" banner shows, its message names the cause (missing key, rate limit, outage, or no data).
+2. ERCOT currently reports these EIA fuel codes: `NG`, `WND`, `SUN`, `NUC`, `COL`, `BAT`, `OTH`, `WAT`. The mapping to chart groups lives in `src/lib/fuels.ts`; unknown codes fall into "Battery & other".
+3. Fill the TODO boxes on the Data centers page (ERCOT queue and forecast figures) before publishing.
