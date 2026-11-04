@@ -48,20 +48,3 @@ export function FuelLegend({ groups }: { groups: readonly FuelGroup[] }) {
     </ul>
   );
 }
-
-export function SwatchLegend({ items }: { items: readonly { label: string; color: string; dashed?: boolean }[] }) {
-  return (
-    <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs" aria-label="Legend">
-      {items.map((i) => (
-        <li key={i.label} className="flex items-center gap-1.5">
-          <span
-            aria-hidden="true"
-            className="inline-block h-0 w-4 border-t-2"
-            style={{ borderColor: i.color, borderStyle: i.dashed ? "dashed" : "solid" }}
-          />
-          {i.label}
-        </li>
-      ))}
-    </ul>
-  );
-}

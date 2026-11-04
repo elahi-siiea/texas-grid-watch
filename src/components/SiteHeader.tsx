@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { ThemeToggle } from "./ThemeToggle";
 
-export const NAV_LINKS = [
+const NAV_LINKS = [
   { href: "/", label: "Overview" },
   { href: "/trends", label: "Trends" },
   { href: "/daily-patterns", label: "Daily patterns" },

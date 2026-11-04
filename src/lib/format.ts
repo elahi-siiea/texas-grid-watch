@@ -15,7 +15,3 @@ export function formatTwh(twh: number, digits = 0): string {
 export function formatPercent(fraction: number, digits = 0): string {
   return `${(fraction * 100).toFixed(digits)}%`;
 }
-
-export function formatInt(n: number): string {
-  return INT.format(Math.round(n));
-}

@@ -78,7 +78,7 @@ export function ChartCard({
   );
 }
 
-export function SourceLine({ meta }: { meta?: DataMeta }) {
+function SourceLine({ meta }: { meta?: DataMeta }) {
   if (!meta) return <p className="mt-3 text-xs text-soft">Data source: loading</p>;
   const through = formatCentral(Date.parse(meta.coverage.end), {
     month: "short",
