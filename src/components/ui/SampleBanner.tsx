@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { DataMeta } from "@/lib/types";
 
 export function SampleBanner({ metas }: { metas: readonly (DataMeta | undefined)[] }) {
@@ -9,9 +10,9 @@ export function SampleBanner({ metas }: { metas: readonly (DataMeta | undefined)
       <p className="mt-1">
         These charts show illustrative numbers generated for the demo, not real measurements.{" "}
         {sample.note}{" "}
-        <a href="/about#sample-data" className="underline underline-offset-2">
+        <Link href="/about#sample-data" className="underline underline-offset-2">
           How to switch to live data
-        </a>
+        </Link>
         .
       </p>
     </div>

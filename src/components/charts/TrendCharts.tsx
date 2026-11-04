@@ -149,3 +149,28 @@ export function PeakChart({ data }: { data: readonly PeakDatum[] }) {
     </ResponsiveContainer>
   );
 }
+
+export function DemandBarChart({ years }: { years: readonly YearSummary[] }) {
+  const data = years.map((y) => ({ year: y.year, demand: y.demandTwh }));
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <BarChart data={data} margin={MARGIN}>
+        <CartesianGrid stroke={GRID_STROKE} vertical={false} />
+        {yearAxis()}
+        <YAxis tick={AXIS_TICK} stroke={GRID_STROKE} width={44} label={yAxisLabel("Electricity used (TWh)")} />
+        <Tooltip
+          cursor={{ fill: "var(--accent-soft)" }}
+          content={(p) => (
+            <TooltipBox
+              active={p.active}
+              payload={p.payload}
+              title={p.label === undefined ? undefined : String(p.label)}
+              format={(e) => (typeof e.value === "number" ? formatTwh(e.value, 1) : "No data")}
+            />
+          )}
+        />
+        <Bar dataKey="demand" name="Annual demand" fill="var(--ink-soft)" fillOpacity={0.75} isAnimationActive={false} />
+      </BarChart>
+    </ResponsiveContainer>
+  );
+}
