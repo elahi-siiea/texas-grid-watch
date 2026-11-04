@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg: #fbfaf7;
+  --surface: #ffffff;
+  --ink: #1b1c1e;
+  --ink-soft: #4a4d52;
+  --line: #e2dfd7;
+  --accent: #a63d2a;
+  --accent-soft: #f6e9e5;
+  --warn-bg: #fdf3dc;
+  --warn-ink: #5c4300;
+
+  --fuel-gas: #5b6b7f;
+  --fuel-wind: #1f8a8a;
+  --fuel-solar: #e0a21a;
+  --fuel-nuclear: #7a5aa6;
+  --fuel-coal: #5a4a42;
+  --fuel-other: #9aa79b;
+  --renewables: #2f8f5b;
+}
+
+.dark {
+  --bg: #131416;
+  --surface: #1b1c1f;
+  --ink: #ecebe6;
+  --ink-soft: #a9acb2;
+  --line: #2e3035;
+  --accent: #e08a70;
+  --accent-soft: #33211c;
+  --warn-bg: #2e2610;
+  --warn-ink: #f1d9a0;
+
+  --fuel-gas: #8a9bb0;
+  --fuel-wind: #3fb3b3;
+  --fuel-solar: #f0b93a;
+  --fuel-nuclear: #a58bd0;
+  --fuel-coal: #8c7a70;
+  --fuel-other: #b4c0b5;
+  --renewables: #52c28a;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-soft: var(--ink-soft);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-warn-bg: var(--warn-bg);
+  --color-warn-ink: var(--warn-ink);
+  --font-serif: var(--font-newsreader), Georgia, serif;
+  --font-sans: var(--font-plex), system-ui, sans-serif;
+}
+
+html {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.recharts-surface:focus {
+  outline: none;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse {
+    animation: none;
+  }
+}

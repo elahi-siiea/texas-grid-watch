@@ -49,7 +49,7 @@ export function syntheticHour(t: number): { demandMw: number; mix: FuelMix } {
 
   const nuclear = 5_100;
   const coal = Math.max(4_000, 11_000 - 700 * years) * (0.85 + 0.15 * seasonal);
-  const other = 800 + 600 * years;
+  const other = 400 + 150 * years;
   const gas = Math.max(6_000, demandMw - wind - solar - nuclear - coal - other);
 
   return { demandMw, mix: { gas, wind, solar, nuclear, coal, other } };
